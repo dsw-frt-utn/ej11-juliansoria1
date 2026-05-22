@@ -1,4 +1,5 @@
 ﻿using Dsw2026Ej11.Collections;
+using Dsw2026Ej11.Domain;
 
 namespace Dsw2026Ej11.Tests;
 
@@ -14,13 +15,13 @@ internal class Ejemplos
     public static void EjemploList()
     {
         CasoList casoList = new CasoList();
-        casoList.agregarAlumnos("Pedro");
-        casoList.agregarAlumnos("Juan");
-        casoList.agregarAlumnos("Jaime");
+        casoList.agregarAlumnos(new Alumno(123,"Pedro",7.5));
+        casoList.agregarAlumnos(new Alumno(456,"Juan",8.0));
+        casoList.agregarAlumnos(new Alumno(789,"Jaime",6.5));
         casoList.verAlumnos();
         casoList.buscarAlumno("Pedro");
         casoList.buscarAlumno("Ana");
-        casoList.eliminarAlumno("Juan");
+        casoList.EliminarAlumno(new Alumno(456,"Juan",8.0));
         casoList.verAlumnos();
         casoList.eliminarPosicion(0);
         casoList.verAlumnos();
@@ -33,15 +34,16 @@ internal class Ejemplos
     //Eliminar un alumno por clave y listar por consola los alumnos
     public static void EjemploDictionary()
     {
-                CasoDictionary casoDictionary = new CasoDictionary();
-                casoDictionary.agregarAlumno(123, "Pedro");
-                casoDictionary.agregarAlumno(456, "Juan");
-                casoDictionary.agregarAlumno(789, "Jaime");
-                casoDictionary.verAlumnos();
-                casoDictionary.buscarAlumno(123);
-                casoDictionary.buscarAlumno(777);
-                casoDictionary.eliminarAlumno(456);
-                casoDictionary.verAlumnos();
+        CasoDictionary casoDictionary = new CasoDictionary();
+        casoDictionary.agregarAlumno(123, new Alumno(123,"Pedro",7.5));
+        casoDictionary.agregarAlumno(456, new Alumno(456,"Juan",8.0));
+        casoDictionary.agregarAlumno(789, new Alumno(789,"Jaime",6.5));
+        casoDictionary.obtenerAlumnos();
+        casoDictionary.buscarAlumno(123);
+        casoDictionary.buscarAlumno(999);
+        casoDictionary.eliminarAlumno(456);
+        casoDictionary.obtenerAlumnos();
+
     }
 
     //Realizar una llamada a cada método definido en CasoLinq y mostar por consola según corresponda

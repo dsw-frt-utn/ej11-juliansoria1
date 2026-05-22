@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dsw2026Ej11.Domain;
+using System;
 using System.Collections.Generic;
 namespace Dsw2026Ej11.Collections;
 
@@ -9,47 +10,63 @@ namespace Dsw2026Ej11.Collections;
 //Incluir un método para eliminar un alumno utilizando la clave
 public class CasoDictionary
 {
-    Dictionary<int, string> alumno = new Dictionary<int, string>();
+    private Dictionary<int, Alumno> alumnos = new Dictionary<int, Alumno>();
 
     // Método para agregar un alumno al diccionario
-    public void agregarAlumno(int legajo, string nombre){
+    public bool agregarAlumno(int legajo, Alumno nuevoAlumno)
+    {
         
-        alumno.Add(legajo, nombre);
-
+        if (!alumnos.ContainsKey(legajo))
+        {
+            alumnos.Add(legajo, nuevoAlumno);
+            return true; 
+        }
+        return false; 
     }
 
     // Método para buscar un alumno utilizando la clave
-    public void buscarAlumno(int legajo) {
-        if (alumno.ContainsKey(legajo)) {
-        
-        Console.WriteLine("El alumno con legajo " + legajo + " es " + alumno[legajo]);
-        } 
-        else {
-            Console.WriteLine("No se encontró un alumno con el legajo " + legajo);
+    public void buscarAlumno(int legajo)
+    {
+        if (alumnos.ContainsKey(legajo))
+        {
+            Console.WriteLine($"El legajo {legajo} pertenece a: {alumnos[legajo].ToString()}");
         }
-    
+        else
+        {
+            Console.WriteLine($"No se encontró ningún alumno con el legajo {legajo}.");
+        }
     }
 
     // Método para retornar el diccionario
-    public void verAlumnos() {
-
-        Console.WriteLine("Lista de alumnos:");
-
-        foreach (KeyValuePair<int, string> entry in alumno) {
-            Console.WriteLine("Legajo: " + entry.Key + ", Alumno: " + entry.Value);
+    public Dictionary<int, Alumno> obtenerAlumnos()
+    {
+        Console.WriteLine("Lista de alumnos en el diccionario:");
+        if (alumnos.Count == 0)
+        {
+            Console.WriteLine("El diccionario está vacío.");
         }
+        else
+        {
+            foreach (var par in alumnos)
+            {
+                Console.WriteLine($"Legajo: {par.Key} -> Datos: {par.Value.ToString()}");
+            }
+        }
+        
+        return alumnos;
     }
 
     // Método para eliminar un alumno utilizando la clave
-    public void eliminarAlumno(int legajo) {
-        if (alumno.ContainsKey(legajo)){
-
-            alumno.Remove(legajo);
-            Console.WriteLine("El alumno " + legajo + " fue eliminado");
+    public void eliminarAlumno(int legajo)
+    {
+        if (alumnos.ContainsKey(legajo))
+        {
+            alumnos.Remove(legajo);
+            Console.WriteLine($"El legajo {legajo} fue eliminado correctamente.");
         }
-        else { 
-        Console.WriteLine("No se encontró un alumno con el legajo " + legajo);
+        else
+        {
+            Console.WriteLine($"El legajo: {legajo} NO existe.");
         }
-    
     }
 }

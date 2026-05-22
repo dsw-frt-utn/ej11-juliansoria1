@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dsw2026Ej11.Domain;
+using System;
 using System.Collections.Generic;
 namespace Dsw2026Ej11.Collections;
 //Crear un campo que represente una lista de alumnos (List<>)
@@ -10,56 +11,64 @@ namespace Dsw2026Ej11.Collections;
 public class CasoList
 {
     // Campo que representa una lista de alumnos
-    List<string> alumnos = new List<string>();
+    List<Alumno> alumnos = new List<Alumno>();
 
     // Método para agregar alumnos a la lista
-    public void agregarAlumnos(string nombre){
+    public void agregarAlumnos(Alumno nuevoAlumno){
 
-        alumnos.Add(nombre);
+        alumnos.Add(nuevoAlumno);
 
     }
 
     // Método para retornar la lista
-    public void verAlumnos(){
-       Console.WriteLine("Lista de alumnos:");
-        foreach (string alumno in alumnos) { 
-        
-            Console.WriteLine(alumno);
-
+    public void verAlumnos() {
+        foreach (Alumno alumno in alumnos)
+        {
+            Console.WriteLine("Alumno: " + alumno.Nombre + ", ID: " + alumno.Id + ", Nota: " + alumno.Promedio);
         }
     }
 
     // Metodo para buscar alumno por nombre
-    public void buscarAlumno(string nombre){
+    public Alumno buscarAlumno(string nombre){
         
-        if (alumnos.Contains(nombre)) { 
-        
-            Console.WriteLine("El alumno " + nombre + " se encuentra en la lista.");
-        } else {
-            Console.WriteLine("El alumno " + nombre + " NO EXISTE.");
+        foreach (Alumno alumno in alumnos)
+        {
+            if (alumno.Nombre.ToLower() == nombre.ToLower())
+            {
+                Console.WriteLine("El alumno " + nombre + " se encuentra en la lista.");
+                return alumno;
+            }
         }
+        Console.WriteLine("El alumno " + nombre + " NO EXISTE.");
+        return null;
     }
 
     // Método para eliminar un alumno (debe recibir un alumno)
-    public void eliminarAlumno(string nombre){
-        if (alumnos.Contains(nombre))
+    
+    public bool EliminarAlumno(Alumno alumnoFalso)
+    {
+        
+        Alumno alumnoReal = alumnos.Find(a => a.Id == alumnoFalso.Id);
+
+       
+        if (alumnoReal != null)
         {
-            alumnos.Remove(nombre);
-            Console.WriteLine("El alumno " + nombre + " ha sido eliminado de la lista.");
+           
+            alumnos.Remove(alumnoReal);
+            return true;
         }
-        else 
-        { 
-           Console.WriteLine("El alumno " + nombre + " no se encuentra en la lista.");
-        }
+
+        
+        return false;
     }
 
     //Metodo para eliminar un alumno en una determinada posición de la lista
     public void eliminarPosicion(int posicion){ 
         if(posicion >= 0 && posicion < alumnos.Count)
         {
-            string alumno = alumnos[posicion];
+            Alumno alumno = alumnos[posicion];
             alumnos.RemoveAt(posicion);
-            Console.WriteLine("El alumno " + alumno + " de la posición " + posicion + " ha sido eliminado de la lista.");
+            Console.WriteLine("El alumno " + alumno.Nombre + " de la posición " + posicion + " ha sido eliminado de la lista.");
         }
         else
         {
