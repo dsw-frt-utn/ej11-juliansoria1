@@ -17,4 +17,9 @@ public class Alumno
     {
         return $"{Id} - {Nombre} - Promedio: {Promedio}";
     }
+
+    internal static void Remove(Alumno alumno)
+    {
+        throw new NotImplementedException();
+    }
 }
